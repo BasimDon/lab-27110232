@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FruitStation — Freshness Delivered Between Classes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FFFDF9;
+      --primary: #FF5A1F;
+      --primary-dark: #E04810;
+      --accent: #16A34A;
+      --accent-soft: #DCFCE7;
+      --text: #1C1917;
+      --muted: #57534E;
+      --border: #E7E5E4;
+      --card: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      padding-bottom: 84px;
+    }
+
+    h1, h2, h3, .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Sticky Top Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 253, 249, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+    }
+
+    .header-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--primary);
+      display: inline-block;
+    }
+
+    .hours-badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #FFF3EC 0%, #FFFDF9 100%);
+      border: 1px solid #FED7AA;
+      border-radius: 20px;
+      padding: 24px 20px;
+      margin-bottom: 24px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1.18;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.1s ease, background-color 0.15s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    /* Fruit a Friend Callout */
+    .gift-callout {
+      background: #F0FDF4;
+      border: 1.5px dashed var(--accent);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .gift-callout-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .gift-callout h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .gift-price {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+
+    .gift-callout p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    /* Menu Section */
+    .section-heading {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 18px;
+    }
+
+    .category-block {
+      margin-bottom: 24px;
+    }
+
+    .category-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .category-title span {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .menu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .menu-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .menu-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 1.02rem;
+    }
+
+    .menu-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+
+    .menu-price {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .menu-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .menu-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 4px;
+      padding-top: 10px;
+      border-top: 1px solid #F5F5F4;
+    }
+
+    .prep-tag {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .qty-stepper {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qty-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: #FFFDF9;
+      color: var(--text);
+      font-size: 1.25rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qty-btn.add {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .qty-val {
+      min-width: 24px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* About Section */
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin: 28px 0;
+    }
+
+    .about-card h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .about-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+
+    .stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 6px;
+    }
+
+    .stat-num {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* Contact / Pre-Order Form */
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .contact-card h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .contact-card > p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1.5px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .input-error {
+      border-color: #DC2626 !important;
+      background: #FEF2F2;
+    }
+
+    .error-msg {
+      color: #DC2626;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .success-msg {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Sticky Bottom Action Bar */
+    .sticky-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: #1C1917;
+      color: #FFFFFF;
+      padding: 10px 16px;
+      border-top: 1px solid #292524;
+    }
+
+    .sticky-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cart-summary {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cart-count {
+      font-size: 0.78rem;
+      color: #D6D3D1;
+    }
+
+    .cart-total {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: #FFFFFF;
+    }
+
+    .whatsapp-cta {
+      background: var(--accent);
+      color: #FFFFFF;
+      min-height: 48px;
+      padding: 0 18px;
+      border-radius: 12px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .whatsapp-cta:hover {
+      background: #15803D;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Top Header -->
+  <header>
+    <div class="header-inner">
+      <div class="brand-title">
+        <span class="brand-dot"></span>
+        FruitStation
+      </div>
+      <div class="hours-badge">LUMS Delivery: 11:30 AM – 4:00 PM</div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <span class="hero-tag">LUMS Student-Run Kitchen • 25 Nov 2026</span>
+      <h1>Freshness Delivered Between Classes.</h1>
+      <p>
+        Chilled fruit bowls, crisp cut fruit boxes, creamy chaat, and blended shakes prepped fresh for SDSB, PDC, Khokha, and campus hostels.
+      </p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn btn-primary">Browse Today's Menu (8 Items)</a>
+        <a href="#fruit-a-friend" class="btn btn-secondary">Send a "Fruit a Friend" Box</a>
+      </div>
+    </section>
+
+    <!-- Fruit a Friend Callout -->
+    <section id="fruit-a-friend" class="gift-callout">
+      <div class="gift-callout-header">
+        <h2>Fruit a Friend Gift Box</h2>
+        <span class="gift-price">PKR 650</span>
+      </div>
+      <p>
+        Surprise a study partner or friend during midterms with a chilled seasonal fruit box, a handwritten note card, and direct drop-off at any LUMS academic block.
+      </p>
+      <button type="button" class="btn btn-primary" onclick="addGiftBox()">
+        + Add Gift Box (PKR 650)
+      </button>
+    </section>
+
+    <!-- Menu Section: 8 Items in 3 Categories -->
+    <section id="menu">
+      <h2 class="section-heading">Today's Campus Menu</h2>
+      <p class="section-sub">Tap + to build your pre-order, then send directly to WhatsApp in 1 tap.</p>
+
+      <!-- Category 1: Fruit Bowls & Chaat (3 items) -->
+      <div class="category-block">
+        <h3 class="category-title">
+          Fruit Bowls &amp; Cream Chaat
+          <span>3 items</span>
+        </h3>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">LUMS Signature Citrus &amp; Berry Bowl</div>
+                <span class="menu-badge">Bestseller</span>
+              </div>
+              <div class="menu-price">PKR 450</div>
+            </div>
+            <p class="menu-desc">1 bowl of chilled kinnow segments, strawberries, apple cubes, and pomegranate seeds with a light honey-lime drizzle.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 10 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Signature Bowl" onclick="updateQty('Signature Bowl', 450, -1)">−</button>
+                <span class="qty-val" id="qty-Signature Bowl">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Signature Bowl" onclick="updateQty('Signature Bowl', 450, 1)">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Classic Lahore Cream Chaat</div>
+                <span class="menu-badge">Campus Favorite</span>
+              </div>
+              <div class="menu-price">PKR 380</div>
+            </div>
+            <p class="menu-desc">1 bowl of fresh bananas, apples, guavas, and dates folded in lightly sweetened dairy cream with roasted chaat masala.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 10 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Cream Chaat" onclick="updateQty('Cream Chaat', 380, -1)">−</button>
+                <span class="qty-val" id="qty-Cream Chaat">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Cream Chaat" onclick="updateQty('Cream Chaat', 380, 1)">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Tropical Protein Fruit Bowl</div>
+              </div>
+              <div class="menu-price">PKR 520</div>
+            </div>
+            <p class="menu-desc">1 bowl of papaya, pineapple, banana, and kiwi topped with roasted almonds, chia seeds, and Greek yogurt.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 12 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Protein Bowl" onclick="updateQty('Protein Bowl', 520, -1)">−</button>
+                <span class="qty-val" id="qty-Protein Bowl">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Protein Bowl" onclick="updateQty('Protein Bowl', 520, 1)">+</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Category 2: Cut Fruit Boxes (2 items) -->
+      <div class="category-block">
+        <h3 class="category-title">
+          Cut Fruit Boxes
+          <span>2 items</span>
+        </h3>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Lecture-Break Solo Fruit Box</div>
+                <span class="menu-badge">Zero Mess</span>
+              </div>
+              <div class="menu-price">PKR 320</div>
+            </div>
+            <p class="menu-desc">1 sealed box of bite-sized watermelon, melon, and seedless grapes with a bamboo fork for easy snacking in class.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 8 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Solo Fruit Box" onclick="updateQty('Solo Fruit Box', 320, -1)">−</button>
+                <span class="qty-val" id="qty-Solo Fruit Box">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Solo Fruit Box" onclick="updateQty('Solo Fruit Box', 320, 1)">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Study Group Share Platter</div>
+              </div>
+              <div class="menu-price">PKR 1,150</div>
+            </div>
+            <p class="menu-desc">1 large platter serving 4 students with 5 seasonal cut fruits, black salt dip, and 4 bamboo forks.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 15 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Study Share Platter" onclick="updateQty('Study Share Platter', 1150, -1)">−</button>
+                <span class="qty-val" id="qty-Study Share Platter">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Study Share Platter" onclick="updateQty('Study Share Platter', 1150, 1)">+</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Category 3: Shakes & Cold-Pressed Juices (3 items) -->
+      <div class="category-block">
+        <h3 class="category-title">
+          Shakes &amp; Cold-Pressed Juices
+          <span>3 items</span>
+        </h3>
+        <div class="menu-grid">
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Sargodha Kinnow Cold-Pressed Juice</div>
+                <span class="menu-badge">100% Pure</span>
+              </div>
+              <div class="menu-price">PKR 280</div>
+            </div>
+            <p class="menu-desc">1 bottle (350 ml) of freshly squeezed seasonal kinnow juice with zero added sugar or ice dilution.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 5 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Kinnow Juice" onclick="updateQty('Kinnow Juice', 280, -1)">−</button>
+                <span class="qty-val" id="qty-Kinnow Juice">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Kinnow Juice" onclick="updateQty('Kinnow Juice', 280, 1)">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Strawberry &amp; Banana Power Shake</div>
+              </div>
+              <div class="menu-price">PKR 390</div>
+            </div>
+            <p class="menu-desc">1 chilled cup (400 ml) blended with fresh strawberries, ripe bananas, chilled milk, and a touch of raw honey.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 7 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Strawberry Shake" onclick="updateQty('Strawberry Shake', 390, -1)">−</button>
+                <span class="qty-val" id="qty-Strawberry Shake">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Strawberry Shake" onclick="updateQty('Strawberry Shake', 390, 1)">+</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="menu-card">
+            <div class="menu-top">
+              <div>
+                <div class="menu-name">Pomegranate &amp; Apple Detox Cooler</div>
+              </div>
+              <div class="menu-price">PKR 350</div>
+            </div>
+            <p class="menu-desc">1 bottle (350 ml) of ruby pomegranate and crisp green apple juice finished with a pinch of pink salt.</p>
+            <div class="menu-controls">
+              <span class="prep-tag">Prep: 6 mins</span>
+              <div class="qty-stepper">
+                <button type="button" class="qty-btn" aria-label="Decrease Pomegranate Cooler" onclick="updateQty('Pomegranate Cooler', 350, -1)">−</button>
+                <span class="qty-val" id="qty-Pomegranate Cooler">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Pomegranate Cooler" onclick="updateQty('Pomegranate Cooler', 350, 1)">+</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-card">
+      <h2>About FruitStation</h2>
+      <p>
+        Founded by 4 LUMS undergraduates, FruitStation fixes the lack of clean, quick, and genuinely fresh fruit options on campus. Every bowl and bottle is prepped in small morning batches and delivered directly to your academic block or hostel gate between 11:30 AM – 4:00 PM.
+      </p>
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num">15 mins</div>
+          <div class="stat-label">Avg Drop-Off</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">8 Items</div>
+          <div class="stat-label">Prepped Daily</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">WhatsApp Order</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Quick Pre-Order Form -->
+    <section id="contact" class="contact-card">
+      <h2>Campus Pre-Order &amp; Contact</h2>
+      <p>Enter your LUMS drop-off spot and 11-digit Pakistani mobile number to send your order via WhatsApp.</p>
+
+      <form id="orderForm" novalidate>
+        <div class="form-group">
+          <label for="studentName">Your Name</label>
+          <input type="text" id="studentName" name="studentName" placeholder="e.g., Basim Humayun" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phoneInput">WhatsApp Phone Number (11 Digits)</label>
+          <input type="tel" id="phoneInput" name="phoneInput" inputmode="numeric" maxlength="11" placeholder="03001234567" required />
+          <div class="error-msg" id="phoneError">Please enter a valid 11-digit mobile number (e.g., 03001234567).</div>
+        </div>
+
+        <div class="form-group">
+          <label for="dropoffSpot">LUMS Campus Drop-Off Spot</label>
+          <select id="dropoffSpot" name="dropoffSpot">
+            <option value="SDSB Lobby">SDSB Lobby</option>
+            <option value="PDC Outside">PDC Outside</option>
+            <option value="Khokha">Khokha</option>
+            <option value="SSE Main Entrance">SSE Main Entrance</option>
+            <option value="Male Hostels Gate">Male Hostels Gate</option>
+            <option value="Female Hostels Gate">Female Hostels Gate</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="noteInput">Gift Note or Custom Request (Optional)</label>
+          <textarea id="noteInput" name="noteInput" rows="2" placeholder="Add a 'Fruit a Friend' note or extra chaat masala..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%;">
+          Send Pre-Order to WhatsApp
+        </button>
+
+        <div class="success-msg" id="formSuccess">
+          Number verified! Opening WhatsApp with your pre-filled FruitStation order...
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Sticky Bottom Action Bar -->
+  <div class="sticky-bar">
+    <div class="sticky-inner">
+      <div class="cart-summary">
+        <span class="cart-count" id="cartCount">0 items selected</span>
+        <span class="cart-total" id="cartTotal">PKR 0</span>
+      </div>
+      <button type="button" class="whatsapp-cta" onclick="checkoutWhatsApp()">
+        Order on WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const cart = {};
+    const WHATSAPP_NUMBER = '923001234567';
+
+    function formatPKR(amount) {
+      return 'PKR ' + amount.toLocaleString('en-US');
+    }
+
+    function updateQty(itemName, price, delta) {
+      if (!cart[itemName]) {
+        cart[itemName] = { qty: 0, price };
+      }
+      cart[itemName].qty = Math.max(0, cart[itemName].qty + delta);
+
+      const qtyEl = document.getElementById('qty-' + itemName);
+      if (qtyEl) {
+        qtyEl.textContent = cart[itemName].qty;
+      }
+
+      if (cart[itemName].qty === 0) {
+        delete cart[itemName];
+      }
+
+      renderSummary();
+    }
+
+    function addGiftBox() {
+      updateQty('Fruit a Friend Gift Box', 650, 1);
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderSummary() {
+      let totalItems = 0;
+      let totalPrice = 0;
+
+      Object.values(cart).forEach((entry) => {
+        totalItems += entry.qty;
+        totalPrice += entry.qty * entry.price;
+      });
+
+      document.getElementById('cartCount').textContent =
+        totalItems === 1 ? '1 item selected' : `${totalItems} items selected`;
+      document.getElementById('cartTotal').textContent = formatPKR(totalPrice);
+    }
+
+    function buildWhatsAppURL(customerName, phone, dropoff, note) {
+      const lines = ['Assalam-o-Alaikum FruitStation! New LUMS Pre-Order:'];
+      let total = 0;
+
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        lines.push('- 1x Signature Bowl (PKR 450)');
+        total = 450;
+      } else {
+        entries.forEach(([name, info]) => {
+          const lineTotal = info.qty * info.price;
+          total += lineTotal;
+          lines.push(`- ${info.qty}x ${name} (${formatPKR(lineTotal)})`);
+        });
+      }
+
+      lines.push(`Total: ${formatPKR(total)}`);
+      lines.push(`Drop-off Spot: ${dropoff || 'SDSB Lobby'}`);
+      if (customerName) lines.push(`Name: ${customerName}`);
+      if (phone) lines.push(`Phone: ${phone}`);
+      if (note) lines.push(`Note: ${note}`);
+
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+    }
+
+    function checkoutWhatsApp() {
+      const name = document.getElementById('studentName').value.trim();
+      const phone = document.getElementById('phoneInput').value.trim();
+      const dropoff = document.getElementById('dropoffSpot').value;
+      const note = document.getElementById('noteInput').value.trim();
+
+      const url = buildWhatsAppURL(name, phone, dropoff, note);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+
+    const orderForm = document.getElementById('orderForm');
+    const phoneInput = document.getElementById('phoneInput');
+    const phoneError = document.getElementById('phoneError');
+    const formSuccess = document.getElementById('formSuccess');
+
+    phoneInput.addEventListener('input', () => {
+      phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 11);
+      if (/^\d{11}$/.test(phoneInput.value)) {
+        phoneInput.classList.remove('input-error');
+        phoneError.style.display = 'none';
+      }
+    });
+
+    orderForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const digitsOnly = phoneInput.value.replace(/\D/g, '');
+
+      if (digitsOnly.length !== 11) {
+        phoneInput.classList.add('input-error');
+        phoneError.style.display = 'block';
+        formSuccess.style.display = 'none';
+        phoneInput.focus();
+        return;
+      }
+
+      phoneInput.classList.remove('input-error');
+      phoneError.style.display = 'none';
+      formSuccess.style.display = 'block';
+
+      const name = document.getElementById('studentName').value.trim();
+      const dropoff = document.getElementById('dropoffSpot').value;
+      const note = document.getElementById('noteInput').value.trim();
+
+      const url = buildWhatsAppURL(name, digitsOnly, dropoff, note);
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+  </script>
+</body>
+</html>
