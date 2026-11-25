@@ -582,18 +582,18 @@
           <article class="menu-card">
             <div class="menu-top">
               <div>
-                <div class="menu-name">LUMS Signature Citrus &amp; Berry Bowl</div>
+                <div class="menu-name">Tutti Fruity Bowl</div>
                 <span class="menu-badge">Bestseller</span>
               </div>
-              <div class="menu-price">PKR 450</div>
+              <div class="menu-price">PKR 350</div>
             </div>
-            <p class="menu-desc">1 bowl of chilled kinnow segments, strawberries, apple cubes, and pomegranate seeds with a light honey-lime drizzle.</p>
+            <p class="menu-desc">1 chilled bowl of diced apples, bananas, papaya, pineapple, and pomegranate seeds tossed in a light honey-lime glaze.</p>
             <div class="menu-controls">
               <span class="prep-tag">Prep: 10 mins</span>
               <div class="qty-stepper">
-                <button type="button" class="qty-btn" aria-label="Decrease Signature Bowl" onclick="updateQty('Signature Bowl', 450, -1)">−</button>
-                <span class="qty-val" id="qty-Signature Bowl">0</span>
-                <button type="button" class="qty-btn add" aria-label="Increase Signature Bowl" onclick="updateQty('Signature Bowl', 450, 1)">+</button>
+                <button type="button" class="qty-btn" aria-label="Decrease Tutti Fruity Bowl" onclick="updateQty('Tutti Fruity Bowl', 350, -1)">−</button>
+                <span class="qty-val" id="qty-Tutti Fruity Bowl">0</span>
+                <button type="button" class="qty-btn add" aria-label="Increase Tutti Fruity Bowl" onclick="updateQty('Tutti Fruity Bowl', 350, 1)">+</button>
               </div>
             </div>
           </article>
@@ -879,8 +879,8 @@
 
       const entries = Object.entries(cart);
       if (entries.length === 0) {
-        lines.push('- 1x Signature Bowl (PKR 450)');
-        total = 450;
+        lines.push('- 1x Tutti Fruity Bowl (PKR 350)');
+        total = 350;
       } else {
         entries.forEach(([name, info]) => {
           const lineTotal = info.qty * info.price;
